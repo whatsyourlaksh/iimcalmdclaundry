@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>IIM Cal · Laundry Room</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F4F0;
+    --surface: #FFFFFF;
+    --border: #E2E0D9;
+    --border-strong: #C8C5BC;
+    --text: #1A1917;
+    --text-2: #6B6860;
+    --text-3: #A09D97;
+    --green: #2D6A4F;
+    --green-bg: #D8F3DC;
+    --green-light: #B7E4C7;
+    --red: #9B2226;
+    --red-bg: #FFE8E8;
+    --amber: #7D4E00;
+    --amber-bg: #FFF3CD;
+    --accent: #1A1917;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 32px;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand-icon {
+    width: 32px; height: 32px;
+    background: var(--text);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand-icon svg { width: 18px; height: 18px; fill: white; }
+  .brand-name { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; }
+  .brand-sub { font-size: 11px; color: var(--text-3); font-family: 'DM Mono', monospace; }
+
+  .refresh-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--text-2);
+    display: flex; align-items: center; gap: 5px;
+    transition: all .15s;
+  }
+  .refresh-btn:active { background: var(--bg); }
+
+  /* TAB BAR */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    background: var(--bg);
+    padding: 3px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .tab {
+    flex: 1;
+    padding: 7px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    color: var(--text-3);
+    transition: all .15s;
+  }
+  .tab.active {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  /* MAIN CONTENT */
+  .content { padding: 16px 16px 0; max-width: 480px; margin: 0 auto; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-3);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin: 20px 0 8px;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* MACHINE CARDS */
+  .machine-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+    transition: border-color .2s;
+  }
+  .machine-card.occupied { border-color: var(--red-bg); border-left: 3px solid var(--red); }
+  .machine-card.free { border-left: 3px solid var(--green); }
+
+  .status-dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-free { background: var(--green); }
+  .dot-occ { background: var(--red); animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0%,100% { opacity: 1; } 50% { opacity: .5; }
+  }
+
+  .machine-info { flex: 1; min-width: 0; }
+  .machine-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+  .badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+  .badge-free { background: var(--green-bg); color: var(--green); }
+  .badge-occ { background: var(--red-bg); color: var(--red); }
+
+  .machine-user { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .machine-roll { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-3); margin-top: 1px; }
+  .machine-time { font-size: 11px; color: var(--text-3); margin-top: 3px; }
+  .time-left { font-weight: 500; color: var(--amber); }
+  .machine-vacant { font-size: 13px; color: var(--text-3); }
+
+  .done-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--text-2);
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all .15s;
+  }
+  .done-btn:active { background: var(--bg); }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-2); }
+
+  /* CHECK IN FORM */
+  .form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .form-group { margin-bottom: 16px; }
+  .form-group:last-child { margin-bottom: 0; }
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-2);
+    margin-bottom: 6px;
+    letter-spacing: .02em;
+  }
+  select {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B6860' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+  select:focus { border-color: var(--text); }
+
+  .search-wrap { position: relative; }
+  .search-input {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px 10px 36px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+  }
+  .search-input:focus { border-color: var(--text); background: var(--surface); }
+  .search-icon {
+    position: absolute;
+    left: 12px; top: 50%;
+    transform: translateY(-50%);
+    width: 16px; height: 16px;
+    color: var(--text-3);
+    pointer-events: none;
+  }
+
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0; right: 0;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 200;
+    display: none;
+  }
+  .dropdown-item {
+    padding: 10px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background .1s;
+  }
+  .dropdown-item:last-child { border-bottom: none; }
+  .dropdown-item:hover { background: var(--bg); }
+  .dropdown-item .d-name { font-size: 13px; font-weight: 500; color: var(--text); }
+  .dropdown-item .d-roll { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-3); }
+  .dropdown-item .d-room { font-size: 11px; color: var(--text-3); background: var(--bg); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+
+  .selected-chip {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .selected-chip .chip-info { font-size: 13px; font-weight: 500; color: var(--text); }
+  .selected-chip .chip-roll { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-3); margin-top: 1px; }
+  .selected-chip .chip-clear { font-size: 11px; color: var(--text-3); border: 1px solid var(--border-strong); padding: 3px 8px; border-radius: 4px; }
+
+  .warn-box {
+    display: none;
+    padding: 10px 14px;
+    background: var(--amber-bg);
+    border: 1px solid #F0D070;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    color: var(--amber);
+    margin-bottom: 14px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px;
+    background: var(--text);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    letter-spacing: -0.2px;
+    transition: opacity .15s;
+  }
+  .submit-btn:disabled { opacity: .4; cursor: not-allowed; }
+  .submit-btn:not(:disabled):active { opacity: .8; }
+
+  .success-banner {
+    display: none;
+    padding: 12px 16px;
+    background: var(--green-bg);
+    border: 1px solid var(--green-light);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--green);
+    margin-bottom: 14px;
+    text-align: center;
+  }
+
+  .hint { font-size: 11px; color: var(--text-3); text-align: center; margin-top: 10px; }
+
+  /* ROOMS TAB */
+  .room-search-wrap {
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .room-search {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px 10px 36px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+  }
+  .room-search:focus { border-color: var(--text); }
+  .room-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .room-row .rr-name { font-size: 13px; font-weight: 500; color: var(--text); }
+  .room-row .rr-roll { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-3); margin-top: 1px; }
+  .room-row .rr-room {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-3);
+    background: var(--bg);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    min-width: 60px;
+    text-align: center;
+  }
+  .room-row .rr-room.has-room { color: var(--text); background: var(--surface); }
+
+  .info-box {
+    background: var(--amber-bg);
+    border: 1px solid #F0D070;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 12px;
+    color: var(--amber);
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  .auto-refresh-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+    margin-right: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2zm-6 3a3 3 0 110 6 3 3 0 010-6zm6 14H6v-1a6 6 0 0112 0v1z"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">Laundry Room</div>
+        <div class="brand-sub">MBAEx 2026–27 · IIMC</div>
+      </div>
+    </div>
+    <button class="refresh-btn" onclick="loadState()">
+      <span class="auto-refresh-dot"></span> Refresh
+    </button>
+  </div>
+  <div class="tab-bar">
+    <button class="tab active" id="tab-btn-dashboard" onclick="showTab('dashboard')">Dashboard</button>
+    <button class="tab" id="tab-btn-checkin" onclick="showTab('checkin')">Check In</button>
+    <button class="tab" id="tab-btn-rooms" onclick="showTab('rooms')">Rooms</button>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ═══════════ DASHBOARD ═══════════ -->
+  <div id="tab-dashboard">
+    <div class="legend">
+      <div class="legend-item"><div class="status-dot dot-free"></div> Vacant — available now</div>
+      <div class="legend-item"><div class="status-dot dot-occ"></div> In use</div>
+    </div>
+
+    <div class="section-label">Washing Machines</div>
+    <div id="washers-list"></div>
+
+    <div class="section-label">Dryers</div>
+    <div id="dryers-list"></div>
+
+    <p class="hint" id="dashboard-hint"></p>
+  </div>
+
+  <!-- ═══════════ CHECK IN ═══════════ -->
+  <div id="tab-checkin" style="display:none">
+    <div class="success-banner" id="success-banner">Checked in! Machine is now marked as occupied.</div>
+    <div class="form-card">
+
+      <div class="form-group">
+        <label class="form-label">Machine</label>
+        <select id="machine-select" onchange="onMachineChange()">
+          <option value="">— select a machine —</option>
+          <option value="W1">W1 — Washer 1</option>
+          <option value="W2">W2 — Washer 2</option>
+          <option value="W3">W3 — Washer 3</option>
+          <option value="W4">W4 — Washer 4</option>
+          <option value="D1">D1 — Dryer 1</option>
+          <option value="D2">D2 — Dryer 2</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Your name or roll number</label>
+        <div class="search-wrap" id="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input class="search-input" id="person-search" type="text" placeholder="Type name or MBAEx01/20…" oninput="onSearch()" onfocus="showDropdown()" autocomplete="off" />
+          <div class="dropdown" id="person-dropdown"></div>
+        </div>
+        <div class="selected-chip" id="selected-chip" onclick="clearPerson()">
+          <div>
+            <div class="chip-info" id="chip-name"></div>
+            <div class="chip-roll" id="chip-roll"></div>
+          </div>
+          <span class="chip-clear">✕ change</span>
+        </div>
+      </div>
+
+      <div class="warn-box" id="warn-box"></div>
+      <button class="submit-btn" id="checkin-btn" onclick="checkIn()">Start using machine</button>
+    </div>
+    <p class="hint" style="margin-top:10px"><span style="color:var(--amber)">●</span> Washers clear after 2 hrs · Dryers after 1 hr · Anyone can mark done early</p>
+  </div>
+
+  <!-- ═══════════ ROOMS ═══════════ -->
+  <div id="tab-rooms" style="display:none">
+    <div class="info-box">
+      Room numbers not yet mapped. Share your hostel room list and it will be added here. Once mapped, rooms show up on dashboard cards too.
+    </div>
+    <div class="room-search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="room-search" id="room-search" type="text" placeholder="Search name, roll or room…" oninput="renderRooms()" />
+    </div>
+    <div id="room-list"></div>
+  </div>
+
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────
+const PEOPLE = [
+  {name:"Aakash Gupta",roll:"MBAEx01/20"},
+  {name:"Aashish Raj Gupta",roll:"MBAEx02/20"},
+  {name:"Aayush Pandey",roll:"MBAEx03/20"},
+  {name:"Abhijeet Sachan",roll:"MBAEx04/20"},
+  {name:"Abhijeet Sharma",roll:"MBAEx05/20"},
+  {name:"Aditya Kumar Verma",roll:"MBAEx06/20"},
+  {name:"Akshat Raj Srivastava",roll:"MBAEx07/20"},
+  {name:"Akshat Verma",roll:"MBAEx08/20"},
+  {name:"Ambareesh T V",roll:"MBAEx09/20"},
+  {name:"Amit Kumar Gupta",roll:"MBAEx10/20"},
+  {name:"Anirudh Luthra",roll:"MBAEx11/20"},
+  {name:"Arjun S",roll:"MBAEx12/20"},
+  {name:"Azeem Haider",roll:"MBAEx13/20"},
+  {name:"Baneet Singh Bagga",roll:"MBAEx14/20"},
+  {name:"Basudeb Shit",roll:"MBAEx15/20"},
+  {name:"Bijoy Lahiri",roll:"MBAEx16/20"},
+  {name:"Biraj Kanti Mandal",roll:"MBAEx17/20"},
+  {name:"Ravi Kumar Botcha",roll:"MBAEx18/20"},
+  {name:"D Amar Simha Yadav",roll:"MBAEx19/20"},
+  {name:"Deependra Kamedia",roll:"MBAEx20/20"},
+  {name:"Devender Bhatia",roll:"MBAEx21/20"},
+  {name:"Dheeraj Dhall",roll:"MBAEx22/20"},
+  {name:"Dhiman Ghosh",roll:"MBAEx23/20"},
+  {name:"Dushyant Kumar",roll:"MBAEx24/20"},
+  {name:"Gourav Ghatak",roll:"MBAEx25/20"},
+  {name:"Gurunath P S",roll:"MBAEx26/20"},
+  {name:"Harpreet Singh",roll:"MBAEx27/20"},
+  {name:"Harsh Kumar Thakur",roll:"MBAEx28/20"},
+  {name:"Raghav Rajendra Heda",roll:"MBAEx29/20"},
+  {name:"Ishaan Agarwal",roll:"MBAEx30/20"},
+  {name:"Janarthanan Balakrishnan",roll:"MBAEx31/20"},
+  {name:"Jatin Kumar",roll:"MBAEx32/20"},
+  {name:"Kaushiki Singh",roll:"MBAEx33/20"},
+  {name:"Krishna Lohiya",roll:"MBAEx34/20"},
+  {name:"Krishnan K Narayanan",roll:"MBAEx35/20"},
+  {name:"Laksh Agarwal",roll:"MBAEx36/20"},
+  {name:"Lavnish Mohapatra",roll:"MBAEx37/20"},
+  {name:"Lucky Gautam",roll:"MBAEx38/20"},
+  {name:"Manu Raj",roll:"MBAEx39/20"},
+  {name:"Mayank Mishra",roll:"MBAEx40/20"},
+  {name:"Medha Mishra",roll:"MBAEx41/20"},
+  {name:"Mohit Chowdhury",roll:"MBAEx42/20"},
+  {name:"Mrinal Bhardwaj",roll:"MBAEx43/20"},
+  {name:"Nehal Reddy M",roll:"MBAEx44/20"},
+  {name:"Nitesh Sangwan",roll:"MBAEx45/20"},
+  {name:"Omprakash Dhanasekar",roll:"MBAEx46/20"},
+  {name:"Palvit Sharma",roll:"MBAEx47/20"},
+  {name:"Parnika Rai",roll:"MBAEx48/20"},
+  {name:"Patala Puttus",roll:"MBAEx49/20"},
+  {name:"Devam Satish Patel",roll:"MBAEx50/20"},
+  {name:"Pooja Vohra",roll:"MBAEx51/20"},
+  {name:"Prabhakar Tripathi",roll:"MBAEx52/20"},
+  {name:"Prafful Verma",roll:"MBAEx53/20"},
+  {name:"Priyansh Srivastava",roll:"MBAEx54/20"},
+  {name:"Priyanuj Dehingia",roll:"MBAEx55/20"},
+  {name:"Rajarshi Duttagupta",roll:"MBAEx56/20"},
+  {name:"Rohan Pandey",roll:"MBAEx57/20"},
+  {name:"Rounak Sikder",roll:"MBAEx58/20"},
+  {name:"Sachin Kumar",roll:"MBAEx59/20"},
+  {name:"Rahul Lakhmichand Sadhwani",roll:"MBAEx60/20"},
+  {name:"Saurabh Chandra",roll:"MBAEx61/20"},
+  {name:"Sayan Gupta",roll:"MBAEx62/20"},
+  {name:"Shapnil Haldar",roll:"MBAEx63/20"},
+  {name:"Sharma Ashutosh Nathmal",roll:"MBAEx64/20"},
+  {name:"Shivam Saraswat",roll:"MBAEx65/20"},
+  {name:"Shivam Tiwari",roll:"MBAEx66/20"},
+  {name:"Shivangi",roll:"MBAEx67/20"},
+  {name:"Shivani Chauhan",roll:"MBAEx68/20"},
+  {name:"Shivender Narwal",roll:"MBAEx69/20"},
+  {name:"Shourya Srivastava",roll:"MBAEx70/20"},
+  {name:"Shubham Kumar",roll:"MBAEx71/20"},
+  {name:"Sneha Bose",roll:"MBAEx72/20"},
+  {name:"Somesh Kumar",roll:"MBAEx73/20"},
+  {name:"Soumya Shukla",roll:"MBAEx74/20"},
+  {name:"Srinath Sashi Kumar",roll:"MBAEx75/20"},
+  {name:"Sudhansh Aggarwal",roll:"MBAEx76/20"},
+  {name:"Sudhanshu Kandpal",roll:"MBAEx77/20"},
+  {name:"Suman Tamang",roll:"MBAEx78/20"},
+  {name:"Suravarapu Kishore",roll:"MBAEx79/20"},
+  {name:"Tanaz Ahmed",roll:"MBAEx80/20"},
+  {name:"Swetal Nainesh Thakar",roll:"MBAEx81/20"},
+  {name:"Tushar Kant",roll:"MBAEx82/20"},
+  {name:"Tushar S Kulkarni",roll:"MBAEx83/20"},
+  {name:"Utkarsh Chauhan",roll:"MBAEx84/20"},
+  {name:"Utkarsha Sahay",roll:"MBAEx85/20"},
+  {name:"Vaibhav Sharma",roll:"MBAEx86/20"},
+  {name:"Vikas Tiwari",roll:"MBAEx87/20"},
+  {name:"Vivek Gairola",roll:"MBAEx88/20"},
+  {name:"Vivek Kumar Singh",roll:"MBAEx89/20"},
+  {name:"Vivek Raj M",roll:"MBAEx90/20"},
+  {name:"Nivedita Diliprao Waghamode",roll:"MBAEx91/20"}
+];
+
+// Room map — fill in later: "MBAEx01/20": "204", etc.
+const ROOMS = {};
+
+const MACHINES = {
+  W1:{label:"Washer 1",duration:120},
+  W2:{label:"Washer 2",duration:120},
+  W3:{label:"Washer 3",duration:120},
+  W4:{label:"Washer 4",duration:120},
+  D1:{label:"Dryer 1",duration:60},
+  D2:{label:"Dryer 2",duration:60}
+};
+
+// ─── STATE ───────────────────────────────────────────────
+let state = {};
+let selectedPerson = null;
+
+// ─── STORAGE (Firebase Realtime Database) ───────────────
+// Replace this URL with your own Firebase project URL
+const FIREBASE_URL = "https://iimc-mdc-laundry-default-rtdb.asia-southeast1.firebasedatabase.app/";
+
+async function loadState() {
+  try {
+    const r = await fetch(FIREBASE_URL + "/laundry.json");
+    const data = await r.json();
+    state = data || {};
+  } catch(e) {
+    console.warn("Could not load from Firebase, using local state.");
+  }
+  autoClear();
+  renderDashboard();
+  const t = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  document.getElementById('dashboard-hint').innerHTML =
+    '<span class="auto-refresh-dot"></span> Last updated ' + t + ' · Auto-refreshes every 30 sec';
+}
+
+async function saveState() {
+  try {
+    await fetch(FIREBASE_URL + "/laundry.json", {
+      method: "PUT",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(state)
+    });
+  } catch(e) {
+    console.warn("Could not save to Firebase.");
+  }
+}
+
+function autoClear() {
+  let changed = false;
+  for (const id in state) {
+    if (!MACHINES[id]) continue;
+    const s = state[id];
+    if (s && s.since && Date.now() > s.since + MACHINES[id].duration * 60000) {
+      delete state[id];
+      changed = true;
+    }
+  }
+  if (changed) saveState();
+}
+
+// ─── DASHBOARD ───────────────────────────────────────────
+function fmtTime(ts) {
+  return new Date(ts).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+}
+function timeLeft(ts, dur) {
+  const rem = Math.max(0, Math.round((ts + dur * 60000 - Date.now()) / 60000));
+  if (rem === 0) return 'overdue';
+  return rem === 1 ? '1 min left' : rem + ' min left';
+}
+function freeAt(ts, dur) { return fmtTime(ts + dur * 60000); }
+
+function renderDashboard() {
+  ['W1','W2','W3','W4'].forEach(id => renderCard(id, 'washers-list'));
+  ['D1','D2'].forEach(id => renderCard(id, 'dryers-list'));
+}
+
+function renderCard(id, listId) {
+  const list = document.getElementById(listId);
+  let card = document.getElementById('mc-' + id);
+  if (!card) {
+    card = document.createElement('div');
+    card.id = 'mc-' + id;
+    list.appendChild(card);
+  }
+  const s = state[id];
+  const room = (s && s.roll && ROOMS[s.roll]) ? ' · Rm ' + ROOMS[s.roll] : '';
+
+  if (s && s.since) {
+    const tl = timeLeft(s.since, MACHINES[id].duration);
+    const fa = freeAt(s.since, MACHINES[id].duration);
+    card.className = 'machine-card occupied';
+    card.innerHTML = `
+      <div class="status-dot dot-occ"></div>
+      <div class="machine-info">
+        <div class="machine-id">${id} <span class="badge badge-occ">In use</span></div>
+        <div class="machine-user">${s.name}</div>
+        <div class="machine-roll">${s.roll}${room}</div>
+        <div class="machine-time">Since ${fmtTime(s.since)} · Free ~${fa} · <span class="time-left">${tl}</span></div>
+      </div>
+      <button class="done-btn" onclick="markDone('${id}')">Mark done</button>`;
+  } else {
+    card.className = 'machine-card free';
+    card.innerHTML = `
+      <div class="status-dot dot-free"></div>
+      <div class="machine-info">
+        <div class="machine-id">${id} <span class="badge badge-free">Vacant</span></div>
+        <div class="machine-vacant">Available now</div>
+      </div>`;
+  }
+}
+
+async function markDone(id) {
+  delete state[id];
+  await saveState();
+  renderDashboard();
+}
+
+// ─── SEARCH ──────────────────────────────────────────────
+function onSearch() {
+  const q = document.getElementById('person-search').value.trim().toLowerCase();
+  const dd = document.getElementById('person-dropdown');
+  if (!q) { dd.style.display = 'none'; return; }
+  const norm = s => s.replace(/\//g,'').toLowerCase();
+  const matches = PEOPLE.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.roll.toLowerCase().includes(q) ||
+    norm(p.roll).includes(norm(q))
+  ).slice(0, 8);
+  if (!matches.length) { dd.style.display = 'none'; return; }
+  dd.innerHTML = matches.map(p => {
+    const room = ROOMS[p.roll] ? `<span class="d-room">Rm ${ROOMS[p.roll]}</span>` : '';
+    return `<div class="dropdown-item" onclick='pickPerson(${JSON.stringify(p)})'>
+      <div><div class="d-name">${p.name}</div><div class="d-roll">${p.roll}</div></div>
+      ${room}
+    </div>`;
+  }).join('');
+  dd.style.display = 'block';
+}
+
+function showDropdown() {
+  if (document.getElementById('person-search').value.trim()) onSearch();
+}
+
+function pickPerson(p) {
+  selectedPerson = p;
+  document.getElementById('person-search').value = '';
+  document.getElementById('person-dropdown').style.display = 'none';
+  document.getElementById('search-wrap').style.display = 'none';
+  const chip = document.getElementById('selected-chip');
+  document.getElementById('chip-name').textContent = p.name;
+  const room = ROOMS[p.roll] ? ' · Rm ' + ROOMS[p.roll] : '';
+  document.getElementById('chip-roll').textContent = p.roll + room;
+  chip.style.display = 'flex';
+  onMachineChange();
+}
+
+function clearPerson() {
+  selectedPerson = null;
+  document.getElementById('selected-chip').style.display = 'none';
+  document.getElementById('search-wrap').style.display = 'block';
+  document.getElementById('warn-box').style.display = 'none';
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#search-wrap')) {
+    document.getElementById('person-dropdown').style.display = 'none';
+  }
+});
+
+// ─── CHECK IN ────────────────────────────────────────────
+function onMachineChange() {
+  const id = document.getElementById('machine-select').value;
+  const warn = document.getElementById('warn-box');
+  if (id && state[id] && state[id].since) {
+    warn.style.display = 'block';
+    warn.textContent = id + ' is currently being used by ' + state[id].name + ' (' + state[id].roll + '). You can still check in or mark it done first.';
+  } else {
+    warn.style.display = 'none';
+  }
+}
+
+async function checkIn() {
+  const machine = document.getElementById('machine-select').value;
+  if (!machine || !selectedPerson) {
+    alert('Please select a machine and your name.');
+    return;
+  }
+  state[machine] = {name: selectedPerson.name, roll: selectedPerson.roll, since: Date.now()};
+  await saveState();
+  renderDashboard();
+  document.getElementById('machine-select').value = '';
+  clearPerson();
+  document.getElementById('warn-box').style.display = 'none';
+  const banner = document.getElementById('success-banner');
+  banner.style.display = 'block';
+  setTimeout(() => banner.style.display = 'none', 3000);
+  showTab('dashboard');
+}
+
+// ─── ROOMS ───────────────────────────────────────────────
+function renderRooms() {
+  const q = (document.getElementById('room-search').value || '').trim().toLowerCase();
+  const list = document.getElementById('room-list');
+  const filtered = PEOPLE.filter(p => !q ||
+    p.name.toLowerCase().includes(q) ||
+    p.roll.toLowerCase().includes(q) ||
+    (ROOMS[p.roll] && String(ROOMS[p.roll]).toLowerCase().includes(q))
+  );
+  list.innerHTML = filtered.map(p => {
+    const room = ROOMS[p.roll] || '—';
+    const hasRoom = !!ROOMS[p.roll];
+    return `<div class="room-row">
+      <div><div class="rr-name">${p.name}</div><div class="rr-roll">${p.roll}</div></div>
+      <div class="rr-room ${hasRoom ? 'has-room' : ''}">${room}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── TABS ────────────────────────────────────────────────
+function showTab(tab) {
+  ['dashboard','checkin','rooms'].forEach(t => {
+    document.getElementById('tab-' + t).style.display = t === tab ? 'block' : 'none';
+    document.getElementById('tab-btn-' + t).classList.toggle('active', t === tab);
+  });
+  if (tab === 'dashboard') loadState();
+  if (tab === 'rooms') renderRooms();
+}
+
+// ─── QR CODE DEEP LINK ───────────────────────────────────
+const params = new URLSearchParams(window.location.search);
+const pm = params.get('machine');
+if (pm && MACHINES[pm]) {
+  document.getElementById('machine-select').value = pm;
+  showTab('checkin');
+}
+
+// ─── INIT ────────────────────────────────────────────────
+loadState();
+setInterval(() => { autoClear(); renderDashboard(); }, 30000);
+</script>
+</body>
+</html>
