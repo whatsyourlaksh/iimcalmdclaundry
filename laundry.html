@@ -2,168 +2,427 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>IIM Cal · Laundry Room</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Laundry Room · IIMC</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#F5F4F0; --surface:#FFFFFF; --border:#E2E0D9; --border-strong:#C8C5BC;
-  --text:#1A1917; --text-2:#6B6860; --text-3:#A09D97;
-  --green:#2D6A4F; --green-bg:#D8F3DC; --green-light:#B7E4C7;
-  --red:#9B2226; --red-bg:#FFE8E8;
-  --amber:#7D4E00; --amber-bg:#FFF3CD;
-  --blue:#1B4F8C; --blue-bg:#E8F0FB;
-  --radius:12px; --radius-sm:8px;
+  --cream: #F7F3ED;
+  --warm-white: #FDFAF6;
+  --ink: #1C1917;
+  --ink-2: #57534E;
+  --ink-3: #A8A29E;
+  --border: #E7E2DB;
+  --border-strong: #D4CEC6;
+  --green: #166534;
+  --green-bg: #DCFCE7;
+  --green-mid: #86EFAC;
+  --red: #991B1B;
+  --red-bg: #FEE2E2;
+  --amber: #92400E;
+  --amber-bg: #FEF3C7;
+  --blue: #1E40AF;
+  --blue-bg: #DBEAFE;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 3px rgba(28,25,23,.06), 0 4px 12px rgba(28,25,23,.04);
+  --shadow-md: 0 4px 6px rgba(28,25,23,.06), 0 10px 30px rgba(28,25,23,.08);
 }
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:40px}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  max-width: 430px;
+  margin: 0 auto;
+  padding-bottom: 48px;
+}
 
-/* LOGIN */
-.login-screen{position:fixed;inset:0;background:var(--bg);z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px}
-.login-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 22px;width:100%;max-width:360px}
-.login-title{font-size:20px;font-weight:600;letter-spacing:-.4px;margin-bottom:4px}
-.login-sub{font-size:13px;color:var(--text-2);margin-bottom:22px}
-.login-note{font-size:11px;color:var(--text-3);margin-top:12px;text-align:center;line-height:1.6}
+/* ═══ TYPOGRAPHY ═══ */
+.serif { font-family: 'Fraunces', serif; }
+.mono { font-family: 'DM Mono', monospace; }
 
-/* HEADER */
-.header{background:var(--surface);border-bottom:1px solid var(--border);padding:13px 14px 10px;position:sticky;top:0;z-index:100}
-.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.brand{display:flex;align-items:center;gap:10px}
-.brand-icon{width:32px;height:32px;background:var(--text);border-radius:8px;display:flex;align-items:center;justify-content:center}
-.brand-icon svg{width:18px;height:18px;fill:white}
-.brand-name{font-size:15px;font-weight:600;letter-spacing:-.3px}
-.brand-sub{font-size:11px;color:var(--text-3);font-family:'DM Mono',monospace}
-.user-pill{display:flex;align-items:center;gap:6px;padding:5px 10px;background:var(--bg);border:1px solid var(--border-strong);border-radius:20px;cursor:pointer}
-.user-pill-name{font-size:12px;font-weight:500;max-width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.user-pill-roll{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3)}
+/* ═══ LOGIN ═══ */
+.login-screen {
+  position: fixed; inset: 0; background: var(--cream); z-index: 1000;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 32px 24px;
+}
+.login-illustration {
+  font-size: 72px; margin-bottom: 8px;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.login-title {
+  font-family: 'Fraunces', serif;
+  font-size: 28px; font-weight: 300; letter-spacing: -.5px;
+  text-align: center; margin-bottom: 4px;
+}
+.login-subtitle { font-size: 13px; color: var(--ink-3); margin-bottom: 32px; text-align: center; }
+.login-card {
+  background: var(--warm-white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px; width: 100%;
+  box-shadow: var(--shadow-md);
+}
+.login-note { font-size: 11px; color: var(--ink-3); text-align: center; margin-top: 14px; line-height: 1.6; }
 
-/* TABS */
-.tab-bar{display:flex;gap:4px;background:var(--bg);padding:3px;border-radius:var(--radius-sm);border:1px solid var(--border)}
-.tab{flex:1;padding:7px 2px;border:none;background:transparent;border-radius:6px;font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--text-3);transition:all .15s}
-.tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+/* ═══ HEADER ═══ */
+.header {
+  background: var(--warm-white); border-bottom: 1px solid var(--border);
+  padding: 14px 16px 0; position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 1px 0 var(--border), 0 2px 8px rgba(28,25,23,.04);
+}
+.header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.brand-row { display: flex; align-items: center; gap: 10px; }
+.brand-emoji { font-size: 24px; }
+.brand-name { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 400; letter-spacing: -.3px; }
+.brand-sub { font-size: 10px; color: var(--ink-3); font-family: 'DM Mono', monospace; margin-top: -1px; }
+.user-chip {
+  display: flex; align-items: center; gap: 7px;
+  padding: 6px 12px 6px 8px;
+  background: var(--cream); border: 1px solid var(--border-strong);
+  border-radius: 24px; cursor: pointer; transition: background .15s;
+}
+.user-chip:active { background: var(--border); }
+.user-avatar {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--ink); color: white;
+  font-size: 10px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+}
+.user-chip-name { font-size: 12px; font-weight: 500; max-width: 70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* CONTENT */
-.content{padding:14px 14px 0;max-width:480px;margin:0 auto}
-.section-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin:18px 0 8px}
-.section-label:first-child{margin-top:0}
+/* ═══ TABS ═══ */
+.tab-bar {
+  display: flex; gap: 0;
+  border-bottom: none;
+}
+.tab {
+  flex: 1; padding: 10px 4px 11px;
+  border: none; background: transparent;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+  color: var(--ink-3); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .2s; letter-spacing: -.1px;
+}
+.tab.active { color: var(--ink); border-bottom-color: var(--ink); }
 
-/* ALERT BANNER */
-.alert-banner{padding:10px 14px 0;max-width:480px;margin:0 auto}
-.alert-card{border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:8px;font-size:13px;line-height:1.5}
-.alert-done{background:var(--green-bg);border:1px solid var(--green-light);color:var(--green)}
-.alert-wl{background:var(--blue-bg);border:1px solid #9CBDE8;color:var(--blue)}
-.alert-title{font-weight:600;margin-bottom:3px}
-.alert-dismiss{float:right;font-size:11px;cursor:pointer;opacity:.6;margin-left:8px;margin-top:2px}
-.wa-btn{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:6px 12px;background:#25D366;color:white;border:none;border-radius:6px;cursor:pointer;text-decoration:none}
+/* ═══ CONTENT ═══ */
+.content { padding: 0 14px; }
 
-/* MACHINE CARDS */
-.machine-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px 14px;margin-bottom:8px}
-.machine-card.occupied{border-left:3px solid var(--red)}
-.machine-card.completing{border-left:3px solid var(--amber)}
-.machine-card.free{border-left:3px solid var(--green)}
-.mc-top{display:flex;align-items:center;gap:12px}
-.status-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.dot-free{background:var(--green)}
-.dot-occ{background:var(--red);animation:pulse 2s infinite}
-.dot-done{background:var(--amber);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.mc-info{flex:1;min-width:0}
-.mc-id{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px;margin-bottom:2px}
-.badge{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px}
-.badge-free{background:var(--green-bg);color:var(--green)}
-.badge-occ{background:var(--red-bg);color:var(--red)}
-.badge-done{background:var(--amber-bg);color:var(--amber)}
-.mc-user{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mc-roll{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);margin-top:1px}
-.mc-time{font-size:11px;color:var(--text-3);margin-top:3px}
-.mc-last{font-size:12px;color:var(--text-3);margin-top:2px;font-style:italic}
-.time-left{font-weight:500;color:var(--amber)}
-.done-btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;padding:6px 10px;border:1px solid var(--border-strong);background:transparent;border-radius:var(--radius-sm);cursor:pointer;color:var(--text-2);white-space:nowrap;flex-shrink:0}
-.done-btn:active{background:var(--bg)}
+/* ═══ ALERT BANNERS ═══ */
+.alert-zone { padding: 12px 14px 0; }
+.alert-card {
+  border-radius: var(--radius-sm); padding: 13px 15px;
+  margin-bottom: 8px; font-size: 13px; line-height: 1.5;
+  animation: slideDown .3s ease;
+}
+@keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+.alert-done { background: var(--green-bg); border: 1px solid var(--green-mid); color: var(--green); }
+.alert-wl { background: var(--blue-bg); border: 1px solid #93C5FD; color: var(--blue); }
+.alert-title { font-weight: 600; font-size: 13px; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+.alert-dismiss { float: right; font-size: 16px; cursor: pointer; line-height: 1; opacity: .5; margin-left: 8px; }
+.wa-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 9px; font-family: 'DM Sans', sans-serif;
+  font-size: 12px; font-weight: 600; padding: 7px 14px;
+  background: #25D366; color: white; border: none;
+  border-radius: 8px; cursor: pointer; text-decoration: none;
+  letter-spacing: -.1px;
+}
 
-/* WAITLIST IN CARD */
-.mc-wl{margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
-.wl-label{font-size:11px;font-weight:500;color:var(--text-2);margin-bottom:6px}
-.wl-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
-.wl-chip{font-size:11px;padding:3px 9px;background:var(--bg);border:1px solid var(--border);border-radius:20px;color:var(--text-2);display:flex;align-items:center;gap:4px}
-.wl-chip .wl-n{font-family:'DM Mono',monospace;font-weight:500;font-size:10px;background:var(--border-strong);border-radius:10px;padding:0 5px;color:var(--text)}
-.wl-chip.mine{border-color:var(--blue);background:var(--blue-bg);color:var(--blue)}
-.wl-chip.mine .wl-n{background:var(--blue);color:white}
-.join-btn{width:100%;font-family:'DM Sans',sans-serif;font-size:12px;padding:6px 12px;border:1px dashed var(--border-strong);background:transparent;border-radius:var(--radius-sm);cursor:pointer;color:var(--text-2)}
-.leave-btn{width:100%;font-family:'DM Sans',sans-serif;font-size:12px;padding:6px 12px;border:1px solid var(--red-bg);background:var(--red-bg);border-radius:var(--radius-sm);cursor:pointer;color:var(--red)}
+/* ═══ SECTION HEADER ═══ */
+.section-head {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 20px 0 10px;
+}
+.section-head-title {
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300;
+  letter-spacing: -.3px;
+}
+.section-head-count {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  color: var(--ink-3); padding: 1px 7px;
+  background: var(--border); border-radius: 20px;
+}
 
-/* FORMS */
-.form-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
-.form-group{margin-bottom:15px}
-.form-group:last-child{margin-bottom:0}
-.form-label{display:block;font-size:12px;font-weight:500;color:var(--text-2);margin-bottom:6px}
-select,input[type=text]{width:100%;font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 12px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--bg);color:var(--text);outline:none}
-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B6860' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-color:var(--bg);padding-right:32px}
-input:focus,select:focus{border-color:var(--text);background:var(--surface)}
+/* ═══ MACHINE CARDS — REDESIGNED ═══ */
+.machine-card {
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: box-shadow .2s;
+}
+.machine-card:active { box-shadow: none; }
 
-.search-wrap{position:relative}
-.s-input{padding-left:36px!important}
-.s-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--text-3);pointer-events:none}
-.dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius-sm);box-shadow:0 4px 16px rgba(0,0,0,.1);max-height:200px;overflow-y:auto;z-index:300;display:none}
-.dd-item{padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.dd-item:last-child{border-bottom:none}
-.dd-item:active{background:var(--bg)}
-.d-name{font-size:13px;font-weight:500}
-.d-roll{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3)}
+/* Color accent strip on left */
+.mc-strip { width: 4px; flex-shrink: 0; border-radius: 4px 0 0 4px; }
+.strip-free { background: linear-gradient(180deg, #4ADE80, #16A34A); }
+.strip-occ { background: linear-gradient(180deg, #F87171, #DC2626); }
+.strip-done { background: linear-gradient(180deg, #FCD34D, #D97706); }
 
-.sel-chip{display:none;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg);border:1px solid var(--border-strong);border-radius:var(--radius-sm);cursor:pointer}
-.chip-info{font-size:13px;font-weight:500}
-.chip-roll{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);margin-top:1px}
-.chip-clear{font-size:11px;color:var(--text-3);border:1px solid var(--border-strong);padding:3px 8px;border-radius:4px;white-space:nowrap}
+.mc-body { display: flex; align-items: stretch; }
+.mc-main { flex: 1; padding: 14px 14px 14px 16px; min-width: 0; }
 
-.warn-box{display:none;padding:10px 14px;background:var(--amber-bg);border:1px solid #F0D070;border-radius:var(--radius-sm);font-size:12px;color:var(--amber);margin-bottom:12px}
-.submit-btn{width:100%;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:13px;background:var(--text);color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;letter-spacing:-.2px;transition:opacity .15s}
-.submit-btn:active{opacity:.8}
-.success-banner{display:none;padding:12px 16px;background:var(--green-bg);border:1px solid var(--green-light);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--green);margin-bottom:14px;text-align:center}
-.hint{font-size:11px;color:var(--text-3);text-align:center;margin-top:10px}
-.legend{display:flex;gap:14px;margin-bottom:14px;padding:9px 13px;background:var(--surface);border-radius:var(--radius-sm);border:1px solid var(--border)}
-.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)}
-.auto-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;margin-right:4px;vertical-align:middle}
+/* Machine ID row */
+.mc-id-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.mc-label {
+  font-family: 'Fraunces', serif; font-size: 20px; font-weight: 400;
+  letter-spacing: -.3px; line-height: 1;
+}
+.mc-type { font-size: 11px; color: var(--ink-3); font-family: 'DM Mono', monospace; }
+.status-pill {
+  margin-left: auto; font-size: 10px; font-weight: 600;
+  padding: 3px 9px; border-radius: 20px; letter-spacing: .02em;
+  text-transform: uppercase; white-space: nowrap;
+}
+.pill-free { background: var(--green-bg); color: var(--green); }
+.pill-occ { background: var(--red-bg); color: var(--red); }
+.pill-done { background: var(--amber-bg); color: var(--amber); }
+
+/* User info */
+.mc-user-row { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+.mc-user-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--ink); color: white;
+  font-size: 10px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.mc-user-name { font-size: 14px; font-weight: 500; }
+.mc-you-tag { font-size: 10px; color: var(--blue); background: var(--blue-bg); padding: 1px 6px; border-radius: 8px; font-weight: 500; }
+.mc-meta { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ink-3); margin-top: 2px; line-height: 1.6; }
+.mc-time-left { color: var(--amber); font-weight: 500; }
+
+/* Vacant state */
+.mc-vacant-row { display: flex; align-items: center; gap: 10px; }
+.mc-vacant-icon { font-size: 28px; opacity: .25; }
+.mc-vacant-text { font-size: 13px; color: var(--ink-2); }
+.mc-vacant-last { font-size: 11px; color: var(--ink-3); margin-top: 2px; font-style: italic; }
+
+/* Action button column */
+.mc-action-col {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 0 14px 0 0; gap: 8px; flex-shrink: 0;
+}
+.mc-btn {
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
+  padding: 7px 13px; border-radius: var(--radius-sm);
+  cursor: pointer; white-space: nowrap; border: none;
+  transition: opacity .15s, transform .1s;
+  letter-spacing: -.1px;
+}
+.mc-btn:active { opacity: .7; transform: scale(.97); }
+.btn-mark-done { background: var(--amber-bg); color: var(--amber); border: 1px solid #FDE68A; }
+.btn-clear { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-mid); }
+.btn-clear-locked { background: var(--border); color: var(--ink-3); border: 1px solid var(--border-strong); cursor: not-allowed; font-size: 10px; }
+
+/* ── Waitlist inside card ── */
+.mc-wl-zone {
+  border-top: 1px solid var(--border);
+  padding: 10px 14px 12px 16px;
+  background: rgba(247,243,237,.5);
+}
+.wl-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wl-head { font-size: 10px; font-weight: 600; color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 7px; }
+.wl-chip {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; padding: 4px 10px 4px 6px;
+  background: var(--warm-white); border: 1px solid var(--border-strong);
+  border-radius: 20px; color: var(--ink-2);
+}
+.wl-chip.mine { background: var(--blue-bg); border-color: #93C5FD; color: var(--blue); }
+.wl-num {
+  font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500;
+  background: var(--border-strong); border-radius: 10px; padding: 1px 5px; color: var(--ink);
+  min-width: 20px; text-align: center;
+}
+.wl-chip.mine .wl-num { background: var(--blue); color: white; }
+.wl-join-btn {
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+  padding: 5px 12px; border: 1px dashed var(--border-strong);
+  background: transparent; border-radius: 20px; cursor: pointer; color: var(--ink-2);
+  transition: all .15s;
+}
+.wl-join-btn:active { background: var(--border); }
+.wl-leave-btn {
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+  padding: 5px 12px; border: 1px solid #FECACA;
+  background: var(--red-bg); border-radius: 20px; cursor: pointer; color: var(--red);
+}
+
+/* ═══ FORMS ═══ */
+.form-group { margin-bottom: 16px; }
+.form-group:last-child { margin-bottom: 0; }
+.form-label { display: block; font-size: 12px; font-weight: 500; color: var(--ink-2); margin-bottom: 7px; }
+select, input[type=text] {
+  width: 100%; font-family: 'DM Sans', sans-serif; font-size: 15px;
+  padding: 12px 14px; border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm); background: var(--cream);
+  color: var(--ink); outline: none; transition: border-color .15s, background .15s;
+}
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2378716C' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+  background-color: var(--cream); padding-right: 36px;
+}
+input:focus, select:focus { border-color: var(--ink); background: var(--warm-white); }
+
+.search-wrap { position: relative; }
+.s-input { padding-left: 40px !important; }
+.s-icon {
+  position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; color: var(--ink-3); pointer-events: none;
+}
+.dropdown {
+  position: absolute; top: calc(100% + 5px); left: 0; right: 0;
+  background: var(--warm-white); border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-md);
+  max-height: 210px; overflow-y: auto; z-index: 300; display: none;
+}
+.dd-item {
+  padding: 11px 15px; cursor: pointer; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background .1s;
+}
+.dd-item:last-child { border-bottom: none; }
+.dd-item:active { background: var(--cream); }
+.d-name { font-size: 14px; font-weight: 500; }
+.d-roll { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-3); margin-top: 1px; }
+
+.sel-chip {
+  display: none; align-items: center; justify-content: space-between;
+  padding: 11px 14px; background: var(--cream);
+  border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.chip-name { font-size: 14px; font-weight: 500; }
+.chip-roll { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-3); margin-top: 1px; }
+.chip-x { font-size: 11px; color: var(--ink-3); border: 1px solid var(--border-strong); padding: 3px 8px; border-radius: 6px; }
+
+.warn-box {
+  padding: 11px 14px; background: var(--amber-bg); border: 1px solid #FDE68A;
+  border-radius: var(--radius-sm); font-size: 12px; color: var(--amber);
+  margin-bottom: 14px; display: none; line-height: 1.5;
+}
+.submit-btn {
+  width: 100%; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+  padding: 14px; background: var(--ink); color: white; border: none;
+  border-radius: var(--radius-sm); cursor: pointer; letter-spacing: -.2px;
+  transition: opacity .15s, transform .1s;
+}
+.submit-btn:active { opacity: .85; transform: scale(.99); }
+
+.success-banner {
+  display: none; padding: 13px 16px; background: var(--green-bg);
+  border: 1px solid var(--green-mid); border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 500; color: var(--green);
+  margin-bottom: 14px; text-align: center; animation: slideDown .3s ease;
+}
+
+/* ═══ CHECKIN CARD ═══ */
+.checkin-card {
+  background: var(--warm-white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow);
+}
+.checkin-as-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 14px; background: var(--cream);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+.checkin-as-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--ink); color: white;
+  font-size: 12px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.checkin-as-label { font-size: 11px; color: var(--ink-3); }
+.checkin-as-name { font-size: 14px; font-weight: 500; }
+
+.hint { font-size: 11px; color: var(--ink-3); text-align: center; margin-top: 12px; line-height: 1.6; }
+
+/* ═══ WAITLIST TAB ═══ */
+.wl-tab-card {
+  background: var(--warm-white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px; margin-bottom: 10px;
+  box-shadow: var(--shadow);
+}
+.wl-tab-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
+}
+.wl-tab-id { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 400; letter-spacing: -.2px; }
+.wl-tab-type { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ink-3); }
+
+/* ═══ TOAST ═══ */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--ink); color: white; padding: 11px 20px; border-radius: 24px;
+  font-size: 13px; font-weight: 500; white-space: nowrap;
+  z-index: 9999; transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ═══ PULSE DOT ═══ */
+.live-dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); animation: pulse-dot 2s infinite;
+  margin-right: 4px; vertical-align: middle;
+}
+@keyframes pulse-dot { 0%,100%{opacity:1}50%{opacity:.3} }
+
+.refresh-hint { font-size: 11px; color: var(--ink-3); text-align: center; padding: 16px 0 0; }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ████ LOGIN ████ -->
 <div class="login-screen" id="login-screen">
-  <div class="login-box">
-    <div style="width:40px;height:40px;background:var(--text);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2zm-6 3a3 3 0 110 6 3 3 0 010-6zm6 14H6v-1a6 6 0 0112 0v1z"/></svg>
-    </div>
-    <div class="login-title">Laundry Room</div>
-    <div class="login-sub">MBAEx 2026–27 · IIM Calcutta</div>
+  <div class="login-illustration">🧺</div>
+  <div class="login-title">Laundry Room</div>
+  <div class="login-subtitle">MBAEx 2026–27 · IIM Calcutta</div>
+
+  <div class="login-card">
     <div class="form-group">
-      <label class="form-label">Your name or roll number</label>
+      <label class="form-label">Who are you?</label>
       <div class="search-wrap">
         <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input class="s-input" id="login-search" type="text" placeholder="Type name or MBAEx01/20…" oninput="onLoginSearch()" onfocus="onLoginSearch()" autocomplete="off"/>
+        <input class="s-input" id="login-search" type="text" placeholder="Name or roll no. (MBAEx01/20)…" oninput="onLoginSearch()" onfocus="onLoginSearch()" autocomplete="off"/>
         <div class="dropdown" id="login-dd"></div>
       </div>
       <div class="sel-chip" id="login-chip" onclick="clearLoginPerson()">
-        <div><div class="chip-info" id="login-chip-name"></div><div class="chip-roll" id="login-chip-roll"></div></div>
-        <span class="chip-clear">✕ change</span>
+        <div><div class="chip-name" id="login-chip-name"></div><div class="chip-roll" id="login-chip-roll"></div></div>
+        <span class="chip-x">✕ change</span>
       </div>
     </div>
-    <button class="submit-btn" onclick="doLogin()">Sign in</button>
-    <div class="login-note">Your roll number identifies you so you get alerts<br>when your laundry is done. No password needed.</div>
+    <button class="submit-btn" onclick="doLogin()">Enter Laundry Room →</button>
   </div>
+  <div class="login-note">Your session is saved on this phone. Tap your name in the header to sign out.</div>
 </div>
 
-<!-- MAIN -->
+<!-- ████ MAIN APP ████ -->
 <div id="main-app" style="display:none">
+
   <div class="header">
     <div class="header-top">
-      <div class="brand">
-        <div class="brand-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M18 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2zm-6 3a3 3 0 110 6 3 3 0 010-6zm6 14H6v-1a6 6 0 0112 0v1z"/></svg></div>
-        <div><div class="brand-name">Laundry Room</div><div class="brand-sub">MBAEx 2026–27 · IIMC</div></div>
+      <div class="brand-row">
+        <span class="brand-emoji">🧺</span>
+        <div>
+          <div class="brand-name">Laundry Room</div>
+          <div class="brand-sub">MBAEx 2026–27 · IIMC</div>
+        </div>
       </div>
-      <div class="user-pill" onclick="doLogout()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <div><div class="user-pill-name" id="hdr-name">—</div><div class="user-pill-roll" id="hdr-roll">—</div></div>
+      <div class="user-chip" onclick="doLogout()">
+        <div class="user-avatar" id="hdr-avatar">—</div>
+        <div>
+          <div class="user-chip-name" id="hdr-name">—</div>
+        </div>
       </div>
     </div>
     <div class="tab-bar">
@@ -173,32 +432,44 @@ input:focus,select:focus{border-color:var(--text);background:var(--surface)}
     </div>
   </div>
 
-  <div class="alert-banner" id="alert-banner"></div>
+  <!-- Alerts -->
+  <div class="alert-zone" id="alert-zone"></div>
 
   <div class="content">
 
-    <!-- STATUS -->
+    <!-- ══ STATUS TAB ══ -->
     <div id="tab-dashboard">
-      <div class="legend">
-        <div class="legend-item"><div class="status-dot dot-free"></div>Vacant</div>
-        <div class="legend-item"><div class="status-dot dot-occ"></div>In use</div>
-        <div class="legend-item"><div class="status-dot dot-done"></div>Collect clothes</div>
+      <div class="section-head">
+        <span class="section-head-title serif">Washers</span>
+        <span class="section-head-count" id="washers-count">—</span>
       </div>
-      <div class="section-label">Washing Machines</div>
       <div id="washers-list"></div>
-      <div class="section-label">Dryers</div>
+
+      <div class="section-head">
+        <span class="section-head-title serif">Dryers</span>
+        <span class="section-head-count" id="dryers-count">—</span>
+      </div>
       <div id="dryers-list"></div>
-      <p class="hint" id="dashboard-hint"></p>
+
+      <div class="refresh-hint" id="refresh-hint"></div>
     </div>
 
-    <!-- CHECK IN -->
+    <!-- ══ CHECK IN TAB ══ -->
     <div id="tab-checkin" style="display:none">
-      <div class="success-banner" id="success-banner">✓ Checked in! Machine is now marked as occupied.</div>
-      <div class="form-card">
+      <div class="section-head"><span class="section-head-title serif">Check In</span></div>
+      <div class="success-banner" id="success-banner">✓ Checked in! You're all set.</div>
+      <div class="checkin-card">
+        <div class="checkin-as-row">
+          <div class="checkin-as-avatar" id="ci-avatar">—</div>
+          <div>
+            <div class="checkin-as-label">Checking in as</div>
+            <div class="checkin-as-name" id="checkin-as">—</div>
+          </div>
+        </div>
         <div class="form-group">
-          <label class="form-label">Machine</label>
+          <label class="form-label">Which machine?</label>
           <select id="machine-select" onchange="onMachineChange()">
-            <option value="">— select a machine —</option>
+            <option value="">— tap to select —</option>
             <option value="W1">W1 — Washer 1</option>
             <option value="W2">W2 — Washer 2</option>
             <option value="W3">W3 — Washer 3</option>
@@ -210,24 +481,28 @@ input:focus,select:focus{border-color:var(--text);background:var(--surface)}
         <div class="warn-box" id="warn-box"></div>
         <button class="submit-btn" onclick="checkIn()">Start using machine</button>
       </div>
-      <p class="hint" style="margin-top:10px">Checking in as <strong id="checkin-as">—</strong> · Washers clear in 2 hrs · Dryers in 1 hr</p>
+      <div class="hint">Washers auto-clear after 2 hrs · Dryers after 1 hr<br>Only you can clear your own machine once done</div>
     </div>
 
-    <!-- WAITLIST -->
+    <!-- ══ WAITLIST TAB ══ -->
     <div id="tab-waitlist" style="display:none">
-      <div style="font-size:13px;color:var(--text-2);margin-bottom:14px;line-height:1.6">
-        Join the queue for a machine. When it frees up, open the app to see your alert with your official queue number.
-      </div>
-      <div class="section-label">Washing Machines</div>
+      <div class="section-head"><span class="section-head-title serif">Washers</span></div>
       <div id="wl-washers"></div>
-      <div class="section-label">Dryers</div>
+      <div class="section-head"><span class="section-head-title serif">Dryers</span></div>
       <div id="wl-dryers"></div>
+      <div class="hint" style="margin-top:4px">You'll see an alert when your machine frees up</div>
     </div>
 
   </div>
 </div>
 
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <script>
+// ══════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════
 const FIREBASE_URL = "https://iimc-mdc-laundry-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
 const PEOPLE = [
@@ -325,55 +600,69 @@ const PEOPLE = [
 ];
 
 const MACHINES = {
-  W1:{label:"Washer 1",duration:120},
-  W2:{label:"Washer 2",duration:120},
-  W3:{label:"Washer 3",duration:120},
-  W4:{label:"Washer 4",duration:120},
-  D1:{label:"Dryer 1",duration:60},
-  D2:{label:"Dryer 2",duration:60}
+  W1:{label:"Washer 1",short:"Washer",duration:120},
+  W2:{label:"Washer 2",short:"Washer",duration:120},
+  W3:{label:"Washer 3",short:"Washer",duration:120},
+  W4:{label:"Washer 4",short:"Washer",duration:120},
+  D1:{label:"Dryer 1",short:"Dryer",duration:60},
+  D2:{label:"Dryer 2",short:"Dryer",duration:60}
 };
 
 let currentUser = null;
 let state = {};
 let loginSelectedPerson = null;
 
-// ── SESSION ──
+// ══════════════════════════════════════════
+// SESSION
+// ══════════════════════════════════════════
 function loadSession() {
-  try { const s = localStorage.getItem('laundry_user_v2'); if(s) currentUser = JSON.parse(s); } catch(e){}
+  try { const s = localStorage.getItem('laundry_user_v3'); if(s) currentUser = JSON.parse(s); } catch(e){}
 }
-function saveSession() { localStorage.setItem('laundry_user_v2', JSON.stringify(currentUser)); }
+function saveSession() { localStorage.setItem('laundry_user_v3', JSON.stringify(currentUser)); }
+
 function doLogin() {
-  if (!loginSelectedPerson) { alert('Please select your name first.'); return; }
+  if (!loginSelectedPerson) { showToast('Please select your name first'); return; }
   currentUser = loginSelectedPerson;
   saveSession();
   showApp();
 }
 function doLogout() {
-  if (!confirm('Sign out?')) return;
+  if (!confirm('Sign out of the laundry app?')) return;
   currentUser = null;
-  localStorage.removeItem('laundry_user_v2');
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('main-app').style.display = 'none';
+  localStorage.removeItem('laundry_user_v3');
   loginSelectedPerson = null;
   document.getElementById('login-chip').style.display = 'none';
+  document.getElementById('login-search').closest('.search-wrap').style.display = 'block';
   document.getElementById('login-search').value = '';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('main-app').style.display = 'none';
 }
 function showApp() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('main-app').style.display = 'block';
+  const initials = currentUser.name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  document.getElementById('hdr-avatar').textContent = initials;
   document.getElementById('hdr-name').textContent = firstName(currentUser.name);
-  document.getElementById('hdr-roll').textContent = currentUser.roll;
-  document.getElementById('checkin-as').textContent = firstName(currentUser.name);
+  const ciAvatar = document.getElementById('ci-avatar');
+  if (ciAvatar) { ciAvatar.textContent = initials; }
+  document.getElementById('checkin-as').textContent = currentUser.name;
   loadState();
 }
 function firstName(n) { return n.split(' ')[0]; }
+function initials(n) { return n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
 
-// ── FIREBASE ──
+// ══════════════════════════════════════════
+// FIREBASE
+// ══════════════════════════════════════════
 async function fbGet(path) {
   try { const r = await fetch(FIREBASE_URL + path + '.json'); return await r.json(); } catch(e) { return null; }
 }
 async function fbSet(path, val) {
-  try { await fetch(FIREBASE_URL + path + '.json', {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(val)}); } catch(e){}
+  try {
+    await fetch(FIREBASE_URL + path + '.json', {
+      method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(val)
+    });
+  } catch(e){}
 }
 
 async function loadState() {
@@ -383,11 +672,14 @@ async function loadState() {
   checkAlerts();
   renderAll();
   const t = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('dashboard-hint').innerHTML = '<span class="auto-dot"></span>Updated '+t+' · Auto-refreshes every 30s';
+  const el = document.getElementById('refresh-hint');
+  if (el) el.innerHTML = '<span class="live-dot"></span>Updated '+t+' · Refreshes every 30s';
 }
 async function saveState() { await fbSet('/laundry', state); }
 
-// ── AUTO-CLEAR ──
+// ══════════════════════════════════════════
+// AUTO-CLEAR
+// ══════════════════════════════════════════
 function autoClear() {
   let changed = false;
   for (const id in MACHINES) {
@@ -397,8 +689,7 @@ function autoClear() {
       state[id] = {
         completed: true,
         doneAt: s.since + MACHINES[id].duration * 60000,
-        lastUser: s.name,
-        lastRoll: s.roll,
+        lastUser: s.name, lastRoll: s.roll,
         waitlist: s.waitlist || []
       };
       changed = true;
@@ -407,10 +698,10 @@ function autoClear() {
   if (changed) saveState();
 }
 
-// ── ALERTS ──
-function waIcon() {
-  return `<svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.118 1.528 5.855L0 24l6.335-1.51A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.214-3.727.888.928-3.618-.235-.372A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>`;
-}
+// ══════════════════════════════════════════
+// ALERTS
+// ══════════════════════════════════════════
+const waIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.118 1.528 5.855L0 24l6.335-1.51A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.214-3.727.888.928-3.618-.235-.372A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>`;
 
 function checkAlerts() {
   if (!currentUser) return;
@@ -418,47 +709,50 @@ function checkAlerts() {
   for (const id in MACHINES) {
     const s = state[id];
     if (!s || !s.completed) continue;
+    const ts = s.doneAt || Date.now();
 
     // My clothes are done
     if (s.lastRoll === currentUser.roll) {
-      const key = 'done_' + id + '_' + s.doneAt;
+      const key = 'alert_done_' + id + '_' + ts;
       if (!localStorage.getItem(key)) {
-        const msg = encodeURIComponent(`🧺 *Your laundry is done!*\nHey ${firstName(currentUser.name)}, your clothes in *${id} (${MACHINES[id].label})* are ready. Please collect them so others can use the machine! 🙏`);
+        const msg = encodeURIComponent(`🧺 *Laundry done!*\nHey ${firstName(currentUser.name)}, your clothes in *${id} (${MACHINES[id].label})* are ready.\n\nPlease collect them so someone else can use the machine 🙏`);
         html += `<div class="alert-card alert-done">
-          <span class="alert-dismiss" onclick="dismiss('${key}',this.closest('.alert-card'))">✕</span>
+          <span class="alert-dismiss" onclick="dismiss('${key}',this.closest('.alert-card'))">×</span>
           <div class="alert-title">🧺 Your laundry is done!</div>
-          Your clothes in <strong>${id}</strong> are ready. Please collect them soon.
-          <br><a class="wa-btn" href="https://wa.me/?text=${msg}" target="_blank">${waIcon()} Share reminder</a>
+          Clothes in <strong>${id}</strong> are ready. Please collect them soon.
+          <br><a class="wa-btn" href="https://wa.me/?text=${msg}" target="_blank">${waIcon} Remind yourself on WhatsApp</a>
         </div>`;
       }
     }
 
-    // I'm in the waitlist and machine just freed
+    // I'm in the waitlist for this machine
     const wl = s.waitlist || [];
     const pos = wl.findIndex(w => w.roll === currentUser.roll);
     if (pos !== -1) {
-      const key = 'wl_' + id + '_' + s.doneAt + '_' + currentUser.roll;
+      const key = 'alert_wl_' + id + '_' + ts + '_' + currentUser.roll;
       if (!localStorage.getItem(key)) {
         const qn = pos + 1;
-        const msg = encodeURIComponent(`🚨 *${id} is FREE — Run!*\n\nHey ${firstName(currentUser.name)}, *${id} (${MACHINES[id].label})* just freed up!\n\n📋 Your queue number: *#${qn}*\n\nHead to the laundry room now! In any conflict, your official queue position is #${qn}. 🏃‍♂️`);
+        const msg = encodeURIComponent(`🚨 *${id} is FREE — Run!*\n\nHey ${firstName(currentUser.name)}! *${id} (${MACHINES[id].label})* just finished.\n\n📋 Your queue number: *#${qn}*\n\nHead to the laundry room now! In case of any conflict, your official queue position is #${qn}. 🏃‍♂️`);
         html += `<div class="alert-card alert-wl">
-          <span class="alert-dismiss" onclick="dismiss('${key}',this.closest('.alert-card'))">✕</span>
+          <span class="alert-dismiss" onclick="dismiss('${key}',this.closest('.alert-card'))">×</span>
           <div class="alert-title">🚨 ${id} is free — you're #${qn} in queue!</div>
-          <strong>${id}</strong> just finished. Head to the laundry room! Your queue number: <strong>#${qn}</strong>.
-          <br><a class="wa-btn" href="https://wa.me/?text=${msg}" target="_blank">${waIcon()} Share alert</a>
+          Head to the laundry room now. Your official queue position: <strong>#${qn}</strong>.
+          <br><a class="wa-btn" href="https://wa.me/?text=${msg}" target="_blank">${waIcon} Share this alert</a>
         </div>`;
       }
     }
   }
-  document.getElementById('alert-banner').innerHTML = html;
+  document.getElementById('alert-zone').innerHTML = html;
 }
 
 function dismiss(key, el) {
   localStorage.setItem(key, '1');
-  if (el) el.remove();
+  if (el) { el.style.opacity='0'; el.style.transform='translateY(-6px)'; el.style.transition='all .25s'; setTimeout(()=>el.remove(),250); }
 }
 
-// ── RENDER ──
+// ══════════════════════════════════════════
+// RENDER HELPERS
+// ══════════════════════════════════════════
 function fmtTime(ts) { return new Date(ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}); }
 function timeLeft(ts, dur) {
   const rem = Math.max(0, Math.round((ts + dur * 60000 - Date.now()) / 60000));
@@ -467,108 +761,209 @@ function timeLeft(ts, dur) {
 }
 function freeAt(ts, dur) { return fmtTime(ts + dur * 60000); }
 
-function renderAll() {
-  ['W1','W2','W3','W4'].forEach(id => renderCard(id, 'washers-list'));
-  ['D1','D2'].forEach(id => renderCard(id, 'dryers-list'));
-  renderWaitlistTab();
+function wlChipsHtml(wl) {
+  if (!wl || !wl.length) return '<span style="font-size:11px;color:var(--ink-3)">No one waiting</span>';
+  return wl.map((w,i) =>
+    `<div class="wl-chip ${w.roll===currentUser?.roll?'mine':''}">
+      <span class="wl-num">#${i+1}</span>${firstName(w.name)}
+    </div>`
+  ).join('');
 }
 
-function wlHtml(id, wl) {
-  const myPos = (wl || []).findIndex(w => w.roll === currentUser?.roll);
-  const chips = (wl && wl.length)
-    ? wl.map((w,i) => `<div class="wl-chip ${w.roll===currentUser?.roll?'mine':''}"><span class="wl-n">#${i+1}</span>${firstName(w.name)}</div>`).join('')
-    : '<span style="font-size:11px;color:var(--text-3)">No one in queue</span>';
-  const btn = myPos === -1
-    ? `<button class="join-btn" onclick="joinWaitlist('${id}')">+ Join waitlist</button>`
-    : `<button class="leave-btn" onclick="leaveWaitlist('${id}')">Leave queue — you're #${myPos+1}</button>`;
-  return `<div class="mc-wl"><div class="wl-label">Waitlist${wl&&wl.length?' ('+wl.length+')':' — empty'}</div><div class="wl-chips">${chips}</div>${btn}</div>`;
+function wlActionsHtml(id, wl) {
+  const myPos = (wl||[]).findIndex(w => w.roll === currentUser?.roll);
+  if (myPos === -1) {
+    return `<button class="wl-join-btn" onclick="joinWaitlist('${id}')">+ Join waitlist</button>`;
+  }
+  return `<button class="wl-leave-btn" onclick="leaveWaitlist('${id}')">Leave queue · you're #${myPos+1}</button>`;
+}
+
+// ══════════════════════════════════════════
+// RENDER ALL
+// ══════════════════════════════════════════
+function renderAll() {
+  const wIds = ['W1','W2','W3','W4'];
+  const dIds = ['D1','D2'];
+  wIds.forEach(id => renderCard(id, 'washers-list'));
+  dIds.forEach(id => renderCard(id, 'dryers-list'));
+
+  // Update counts
+  const wFree = wIds.filter(id => !state[id]?.since || state[id]?.completed).length;
+  const dFree = dIds.filter(id => !state[id]?.since || state[id]?.completed).length;
+  const wc = document.getElementById('washers-count');
+  const dc = document.getElementById('dryers-count');
+  if (wc) wc.textContent = wFree + '/' + wIds.length + ' free';
+  if (dc) dc.textContent = dFree + '/' + dIds.length + ' free';
+
+  renderWaitlistTab();
 }
 
 function renderCard(id, listId) {
   const list = document.getElementById(listId);
+  if (!list) return;
   let card = document.getElementById('mc-' + id);
-  if (!card) { card = document.createElement('div'); card.id = 'mc-' + id; list.appendChild(card); }
+  if (!card) { card = document.createElement('div'); card.id = 'mc-' + id; card.className = 'machine-card'; list.appendChild(card); }
+
   const s = state[id] || {};
+  const wl = s.waitlist || [];
+  const isMine = currentUser && (s.roll === currentUser.roll || s.lastRoll === currentUser.roll);
+
+  // Build WhatsApp message for "mark done" scenario (for person who pressed the button)
+  function waMarkDoneMsg(ownerName, machineId) {
+    return encodeURIComponent(`🧺 *Laundry done — ${machineId}!*\nHey ${ownerName}, your clothes in *${machineId} (${MACHINES[machineId].label})* are done. Someone just marked it complete — please collect your clothes! 🙏`);
+  }
 
   if (s.since && !s.completed) {
-    // OCCUPIED
+    // ── OCCUPIED ──
     const mine = currentUser && s.roll === currentUser.roll;
-    card.className = 'machine-card occupied';
-    card.innerHTML = `<div class="mc-top">
-      <div class="status-dot dot-occ"></div>
-      <div class="mc-info">
-        <div class="mc-id">${id} <span class="badge badge-occ">In use</span></div>
-        <div class="mc-user">${s.name}${mine?' <span style="color:var(--blue);font-size:11px">(you)</span>':''}</div>
-        <div class="mc-roll">${s.roll}</div>
-        <div class="mc-time">Since ${fmtTime(s.since)} · Free ~${freeAt(s.since,MACHINES[id].duration)} · <span class="time-left">${timeLeft(s.since,MACHINES[id].duration)}</span></div>
+    card.className = 'machine-card';
+    card.innerHTML = `
+      <div class="mc-body">
+        <div class="mc-strip strip-occ"></div>
+        <div class="mc-main">
+          <div class="mc-id-row">
+            <span class="mc-label serif">${id}</span>
+            <span class="mc-type mono">${MACHINES[id].short}</span>
+            <span class="status-pill pill-occ">In use</span>
+          </div>
+          <div class="mc-user-row">
+            <div class="mc-user-avatar">${initials(s.name)}</div>
+            <span class="mc-user-name">${s.name}</span>
+            ${mine ? '<span class="mc-you-tag">you</span>' : ''}
+          </div>
+          <div class="mc-meta">
+            ${s.roll}<br>
+            Since ${fmtTime(s.since)} · Free ~${freeAt(s.since, MACHINES[id].duration)} · <span class="mc-time-left">${timeLeft(s.since, MACHINES[id].duration)}</span>
+          </div>
+        </div>
+        <div class="mc-action-col">
+          <button class="mc-btn btn-mark-done" onclick="markDone('${id}')">Mark<br>done</button>
+        </div>
       </div>
-      <button class="done-btn" onclick="markDone('${id}')">Mark done</button>
-    </div>${wlHtml(id, s.waitlist||[])}`;
+      <div class="mc-wl-zone">
+        <div class="wl-head">Queue</div>
+        <div class="wl-row" style="margin-bottom:7px">${wlChipsHtml(wl)}</div>
+        ${wlActionsHtml(id, wl)}
+      </div>`;
 
   } else if (s.completed) {
-    // DONE — COLLECT CLOTHES
-    card.className = 'machine-card completing';
-    card.innerHTML = `<div class="mc-top">
-      <div class="status-dot dot-done"></div>
-      <div class="mc-info">
-        <div class="mc-id">${id} <span class="badge badge-done">Done — collect clothes</span></div>
-        <div class="mc-user" style="color:var(--amber)">${s.lastUser}</div>
-        <div class="mc-roll">${s.lastRoll}</div>
-        <div class="mc-time">Finished at ${fmtTime(s.doneAt)} · Awaiting collection</div>
+    // ── DONE — COLLECT CLOTHES ──
+    const isOwner = currentUser && s.lastRoll === currentUser.roll;
+    const clearBtn = isOwner
+      ? `<button class="mc-btn btn-clear" onclick="clearMachine('${id}')">Clear &<br>free up</button>`
+      : `<button class="mc-btn btn-clear-locked" title="Only ${firstName(s.lastUser)} can clear this">🔒 Locked</button>`;
+    const waMsg = waMarkDoneMsg(firstName(s.lastUser), id);
+    card.className = 'machine-card';
+    card.innerHTML = `
+      <div class="mc-body">
+        <div class="mc-strip strip-done"></div>
+        <div class="mc-main">
+          <div class="mc-id-row">
+            <span class="mc-label serif">${id}</span>
+            <span class="mc-type mono">${MACHINES[id].short}</span>
+            <span class="status-pill pill-done">Collect clothes</span>
+          </div>
+          <div class="mc-user-row">
+            <div class="mc-user-avatar" style="background:var(--amber)">${initials(s.lastUser)}</div>
+            <span class="mc-user-name" style="color:var(--amber)">${s.lastUser}</span>
+            ${isOwner ? '<span class="mc-you-tag">you</span>' : ''}
+          </div>
+          <div class="mc-meta">
+            ${s.lastRoll}<br>
+            Done at ${fmtTime(s.doneAt)} · Awaiting collection
+          </div>
+          ${!isOwner ? `<a class="wa-btn" style="margin-top:8px;font-size:11px;padding:6px 11px" href="https://wa.me/?text=${waMsg}" target="_blank">${waIcon} Notify ${firstName(s.lastUser)}</a>` : ''}
+        </div>
+        <div class="mc-action-col">
+          ${clearBtn}
+        </div>
       </div>
-      <button class="done-btn" onclick="clearMachine('${id}')">Clear</button>
-    </div>${wlHtml(id, s.waitlist||[])}`;
+      <div class="mc-wl-zone">
+        <div class="wl-head">Queue</div>
+        <div class="wl-row" style="margin-bottom:7px">${wlChipsHtml(wl)}</div>
+        ${wlActionsHtml(id, wl)}
+      </div>`;
 
   } else {
-    // FREE
-    card.className = 'machine-card free';
-    card.innerHTML = `<div class="mc-top">
-      <div class="status-dot dot-free"></div>
-      <div class="mc-info">
-        <div class="mc-id">${id} <span class="badge badge-free">Vacant</span></div>
-        <div class="mc-last">${s.lastUser ? 'Last used by ' + s.lastUser : 'No recent usage recorded'}</div>
+    // ── VACANT ──
+    card.className = 'machine-card';
+    card.innerHTML = `
+      <div class="mc-body">
+        <div class="mc-strip strip-free"></div>
+        <div class="mc-main">
+          <div class="mc-id-row">
+            <span class="mc-label serif">${id}</span>
+            <span class="mc-type mono">${MACHINES[id].short}</span>
+            <span class="status-pill pill-free">Vacant</span>
+          </div>
+          <div class="mc-vacant-row">
+            <div class="mc-vacant-icon">✓</div>
+            <div>
+              <div class="mc-vacant-text">Available now</div>
+              <div class="mc-vacant-last">${s.lastUser ? 'Last used by ' + s.lastUser : 'No recent usage'}</div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>`;
+      <div class="mc-wl-zone">
+        <div class="wl-head">Queue</div>
+        <div class="wl-row" style="margin-bottom:7px">${wlChipsHtml(wl)}</div>
+        ${wlActionsHtml(id, wl)}
+      </div>`;
   }
 }
 
 function renderWaitlistTab() {
-  ['W1','W2','W3','W4'].forEach(id => renderWlCard(id,'wl-washers'));
-  ['D1','D2'].forEach(id => renderWlCard(id,'wl-dryers'));
+  ['W1','W2','W3','W4'].forEach(id => renderWlCard(id, 'wl-washers'));
+  ['D1','D2'].forEach(id => renderWlCard(id, 'wl-dryers'));
 }
 
 function renderWlCard(id, listId) {
   const list = document.getElementById(listId);
+  if (!list) return;
   let card = document.getElementById('wlc-' + id);
-  if (!card) { card = document.createElement('div'); card.id = 'wlc-' + id; card.style.marginBottom='8px'; list.appendChild(card); }
+  if (!card) { card = document.createElement('div'); card.id = 'wlc-' + id; list.appendChild(card); }
+
   const s = state[id] || {};
   const wl = s.waitlist || [];
   const myPos = wl.findIndex(w => w.roll === currentUser?.roll);
-  const statusBadge = s.since && !s.completed
-    ? `<span class="badge badge-occ">In use · Free ~${freeAt(s.since,MACHINES[id].duration)}</span>`
-    : s.completed ? `<span class="badge badge-done">Clearing</span>`
-    : `<span class="badge badge-free">Vacant</span>`;
+
+  const statusPill = s.since && !s.completed
+    ? `<span class="status-pill pill-occ">In use · ~${freeAt(s.since, MACHINES[id].duration)}</span>`
+    : s.completed ? `<span class="status-pill pill-done">Clearing</span>`
+    : `<span class="status-pill pill-free">Vacant</span>`;
+
   const chips = wl.length
-    ? wl.map((w,i)=>`<div class="wl-chip ${w.roll===currentUser?.roll?'mine':''}"><span class="wl-n">#${i+1}</span>${w.name}</div>`).join('')
-    : '<span style="font-size:12px;color:var(--text-3)">No one in queue</span>';
+    ? wl.map((w,i)=>`<div class="wl-chip ${w.roll===currentUser?.roll?'mine':''}"><span class="wl-num">#${i+1}</span>${w.name}</div>`).join('')
+    : '<span style="font-size:11px;color:var(--ink-3)">No one waiting</span>';
+
   const btn = myPos === -1
-    ? `<button class="join-btn" style="margin-top:10px" onclick="joinWaitlist('${id}')">+ Join waitlist for ${id}</button>`
-    : `<button class="leave-btn" style="margin-top:10px" onclick="leaveWaitlist('${id}')">Leave queue — you're #${myPos+1}</button>`;
-  card.innerHTML = `<div class="form-card" style="margin-bottom:0">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500">${id} — ${MACHINES[id].label}</span>${statusBadge}
+    ? `<button class="wl-join-btn" onclick="joinWaitlist('${id}')">+ Join waitlist for ${id}</button>`
+    : `<button class="wl-leave-btn" onclick="leaveWaitlist('${id}')">Leave queue — you're #${myPos+1}</button>`;
+
+  card.innerHTML = `<div class="wl-tab-card">
+    <div class="wl-tab-header">
+      <div><div class="wl-tab-id serif">${id}</div><div class="wl-tab-type mono">${MACHINES[id].label}</div></div>
+      ${statusPill}
     </div>
-    <div class="wl-chips" style="margin-bottom:2px">${chips}</div>${btn}
+    <div class="wl-row" style="margin-bottom:10px">${chips}</div>
+    ${btn}
   </div>`;
 }
 
-// ── ACTIONS ──
+// ══════════════════════════════════════════
+// ACTIONS
+// ══════════════════════════════════════════
 async function checkIn() {
   const machine = document.getElementById('machine-select').value;
-  if (!machine) { alert('Please select a machine.'); return; }
+  if (!machine) { showToast('Please select a machine'); return; }
   const s = state[machine] || {};
   const existingWl = (s.waitlist || []).filter(w => w.roll !== currentUser.roll);
-  state[machine] = {name:currentUser.name, roll:currentUser.roll, since:Date.now(), waitlist:existingWl, lastUser:s.lastUser||null};
+  state[machine] = {
+    name: currentUser.name, roll: currentUser.roll,
+    since: Date.now(), waitlist: existingWl,
+    lastUser: s.lastUser || null
+  };
   await saveState();
   renderAll();
   document.getElementById('machine-select').value = '';
@@ -582,34 +977,50 @@ async function checkIn() {
 async function markDone(id) {
   const s = state[id];
   if (!s || !s.since) return;
-  state[id] = {completed:true, doneAt:Date.now(), lastUser:s.name, lastRoll:s.roll, waitlist:s.waitlist||[]};
+  state[id] = {
+    completed: true, doneAt: Date.now(),
+    lastUser: s.name, lastRoll: s.roll,
+    waitlist: s.waitlist || []
+  };
   await saveState();
   checkAlerts();
   renderAll();
+  showToast('Marked as done ✓');
 }
 
 async function clearMachine(id) {
-  const lastUser = state[id] ? state[id].lastUser : null;
-  state[id] = {lastUser};
+  const s = state[id];
+  // ONLY the owner can clear
+  if (!s || s.lastRoll !== currentUser?.roll) {
+    showToast('Only ' + (s?.lastUser||'the owner') + ' can clear this machine');
+    return;
+  }
+  state[id] = { lastUser: s.lastUser };
   await saveState();
   renderAll();
+  showToast('Machine cleared ✓');
 }
 
 async function joinWaitlist(id) {
   if (!currentUser) return;
   if (!state[id]) state[id] = {};
   if (!state[id].waitlist) state[id].waitlist = [];
-  if (state[id].waitlist.find(w=>w.roll===currentUser.roll)) { alert("You're already in the waitlist for "+id); return; }
-  state[id].waitlist.push({name:currentUser.name, roll:currentUser.roll, joinedAt:Date.now()});
+  if (state[id].waitlist.find(w => w.roll === currentUser.roll)) {
+    showToast("You're already in the queue for " + id);
+    return;
+  }
+  state[id].waitlist.push({name: currentUser.name, roll: currentUser.roll, joinedAt: Date.now()});
   await saveState();
   renderAll();
+  showToast('Added to waitlist for ' + id);
 }
 
 async function leaveWaitlist(id) {
-  if (!currentUser || !state[id] || !state[id].waitlist) return;
-  state[id].waitlist = state[id].waitlist.filter(w=>w.roll!==currentUser.roll);
+  if (!currentUser || !state[id]?.waitlist) return;
+  state[id].waitlist = state[id].waitlist.filter(w => w.roll !== currentUser.roll);
   await saveState();
   renderAll();
+  showToast('Removed from waitlist');
 }
 
 function onMachineChange() {
@@ -617,51 +1028,77 @@ function onMachineChange() {
   const warn = document.getElementById('warn-box');
   const s = state[id];
   if (id && s && s.since && !s.completed) {
-    warn.style.display='block';
-    warn.textContent = id+' is currently used by '+s.name+' ('+s.roll+'). You can still check in or mark it done first.';
-  } else { warn.style.display='none'; }
+    warn.style.display = 'block';
+    warn.innerHTML = '⚠️ <strong>' + id + '</strong> is currently being used by <strong>' + s.name + '</strong> (' + s.roll + '). You can still check in — this will notify the current user.';
+  } else { warn.style.display = 'none'; }
 }
 
-// ── LOGIN SEARCH ──
+// ══════════════════════════════════════════
+// LOGIN SEARCH
+// ══════════════════════════════════════════
 function onLoginSearch() {
   const q = document.getElementById('login-search').value.trim().toLowerCase();
   const dd = document.getElementById('login-dd');
   if (!q) { dd.style.display='none'; return; }
   const norm = s => s.replace(/\//g,'').toLowerCase();
-  const matches = PEOPLE.filter(p=>p.name.toLowerCase().includes(q)||p.roll.toLowerCase().includes(q)||norm(p.roll).includes(norm(q))).slice(0,8);
+  const matches = PEOPLE.filter(p =>
+    p.name.toLowerCase().includes(q) || p.roll.toLowerCase().includes(q) || norm(p.roll).includes(norm(q))
+  ).slice(0,8);
   if (!matches.length) { dd.style.display='none'; return; }
-  dd.innerHTML = matches.map(p=>`<div class="dd-item" onclick='pickLoginPerson(${JSON.stringify(p)})'><div><div class="d-name">${p.name}</div><div class="d-roll">${p.roll}</div></div></div>`).join('');
+  dd.innerHTML = matches.map(p =>
+    `<div class="dd-item" onclick='pickLoginPerson(${JSON.stringify(p)})'>
+      <div><div class="d-name">${p.name}</div><div class="d-roll">${p.roll}</div></div>
+    </div>`
+  ).join('');
   dd.style.display = 'block';
 }
 function pickLoginPerson(p) {
   loginSelectedPerson = p;
-  document.getElementById('login-search').value='';
-  document.getElementById('login-dd').style.display='none';
-  document.getElementById('login-search').closest('.search-wrap').style.display='none';
-  document.getElementById('login-chip-name').textContent=p.name;
-  document.getElementById('login-chip-roll').textContent=p.roll;
-  document.getElementById('login-chip').style.display='flex';
+  document.getElementById('login-search').value = '';
+  document.getElementById('login-dd').style.display = 'none';
+  document.getElementById('login-search').closest('.search-wrap').style.display = 'none';
+  document.getElementById('login-chip-name').textContent = p.name;
+  document.getElementById('login-chip-roll').textContent = p.roll;
+  document.getElementById('login-chip').style.display = 'flex';
 }
 function clearLoginPerson() {
-  loginSelectedPerson=null;
-  document.getElementById('login-chip').style.display='none';
-  document.getElementById('login-search').closest('.search-wrap').style.display='block';
+  loginSelectedPerson = null;
+  document.getElementById('login-chip').style.display = 'none';
+  document.getElementById('login-search').closest('.search-wrap').style.display = 'block';
 }
 
-// ── TABS ──
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+let toastTimer = null;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ══════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════
 function showTab(tab) {
-  ['dashboard','checkin','waitlist'].forEach(t=>{
-    document.getElementById('tab-'+t).style.display=t===tab?'block':'none';
-    document.getElementById('tab-btn-'+t).classList.toggle('active',t===tab);
+  ['dashboard','checkin','waitlist'].forEach(t => {
+    document.getElementById('tab-' + t).style.display = t === tab ? 'block' : 'none';
+    document.getElementById('tab-btn-' + t).classList.toggle('active', t === tab);
   });
-  if(tab==='dashboard') loadState();
+  if (tab === 'dashboard') loadState();
 }
 
-// ── QR DEEPLINK ──
+// ══════════════════════════════════════════
+// QR DEEP LINK
+// ══════════════════════════════════════════
 const params = new URLSearchParams(window.location.search);
 const pm = params.get('machine');
 
-// ── INIT ──
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
 loadSession();
 if (currentUser) {
   showApp();
@@ -672,7 +1109,7 @@ if (currentUser) {
 } else {
   document.getElementById('login-screen').style.display = 'flex';
 }
-setInterval(()=>{ if(currentUser){autoClear();checkAlerts();renderAll();} }, 30000);
+setInterval(() => { if (currentUser) { autoClear(); checkAlerts(); renderAll(); } }, 30000);
 </script>
 </body>
 </html>
